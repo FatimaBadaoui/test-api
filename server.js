@@ -1,7 +1,13 @@
 import express from "express";
 
+// console.log(process.argv); // array of node args "node server.js development" => ["node_path", "file_path of server.js", "development"]
+
 const PORT = 8000;
 const app = express();
+// const environment = "development"; // or "production" in this way we have to manually change it every time
+// const environment = process.argv[2] // getting it from node arguments;
+const environment = process.env.NODE_ENV;
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Test API! endpoints: /user-info and /random-color");
@@ -28,5 +34,9 @@ app.get("/random-color", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`listening on http://localhost:${PORT}`);
+  if (environment === "development") {
+    console.log(`listening on http://localhost:${PORT}`);
+  } else {
+    console.log(`Server running on production`);
+  }
 });
