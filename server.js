@@ -2,12 +2,12 @@ import express from "express";
 
 // console.log(process.argv); // array of node args "node server.js development" => ["node_path", "file_path of server.js", "development"]
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 // const environment = "development"; // or "production" in this way we have to manually change it every time
 // const environment = process.argv[2] // getting it from node arguments;
-const environment = process.env.NODE_ENV;
-
+const environment = process.env.NODE_ENV; // to use the variable inside the .env we need to write node --env-file=.env server.js (node has to be updated)
+// process.env is an object
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Test API! endpoints: /user-info and /random-color");
